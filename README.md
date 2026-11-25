@@ -18,9 +18,7 @@ A small, **reproducible portfolio project** that demonstrates practical **Python
 
 ### Example output
 
-![Pipeline reliability report](reports/pipeline_reliability.png)
-
-Open [`reports/dashboard.html`](reports/dashboard.html) in your browser for a full summary, ticket patterns, quality findings and use-case registry.
+After running the commands below, open `reports/dashboard.html` in your browser. Generated files include `reports/pipeline_reliability.png`, CSVs, and an executive summary. The sample inputs and derived reports are generated locally instead of committing large generated artifacts; GitHub Actions runs the same workflow.
 
 ## Quick start
 
@@ -31,7 +29,7 @@ python -m venv .venv
 # macOS/Linux: source .venv/bin/activate
 python -m pip install -r requirements.txt
 
-# Optional: regenerate exactly the included synthetic sample
+# Create the reproducible synthetic sample (required before analyzing)
 python -m monitor.generate --output sample_data --end-date 2026-11-25
 
 # Analyze data, validate records and produce a local report
@@ -52,8 +50,8 @@ monitor/
   generate.py      # deterministic synthetic input generation
   analyze.py       # validation, SQL KPI calculation, ticket triage
   cli.py           # export outputs and local HTML dashboard
-sample_data/        # generated example input CSV files
-reports/            # KPI CSVs, issue log, chart, report and HTML dashboard
+sample_data/        # generated synthetic CSV files (created by the generator)
+reports/            # generated KPIs, issues, chart and HTML dashboard
 tests/              # core logic and end-to-end tests
 .github/workflows/  # automated CI test checks
 ```
@@ -71,6 +69,7 @@ tests/              # core logic and end-to-end tests
 
 - **SQLite** keeps the project runnable without any cloud account. It demonstrates SQL querying, **not Databricks or Azure experience**.
 - The example uses a fixed synthetic 30-day time window; it is not connected to live APIs or production jobs.
+- Sample CSVs and report files are generated on demand, not tracked in Git, keeping the repository focused on source code and tests.
 - Validation rules are **vectorised pandas masks**: each rule is one line, and the check scales to large tables.
 - Invalid rows are excluded from aggregated metrics but saved to `data_quality_issues.csv` for investigation. Failed runs with valid data **are** included in reliability metrics.
 - Duplicate run IDs: by default the **first otherwise-valid occurrence stays** and extra valid copies are flagged (`keep_first`). Earlier corrupt duplicates remain in the issue log but cannot suppress a later valid row. Use `flag_all` if every copy of a duplicate ID should be flagged.
