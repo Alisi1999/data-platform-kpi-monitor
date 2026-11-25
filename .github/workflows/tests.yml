@@ -14,3 +14,7 @@ jobs:
       - run: python -m pytest -q
       - run: python -m monitor.generate --output sample_data --end-date 2026-11-25
       - run: python -m monitor.cli --input sample_data --output /tmp/platform-report
+      - uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-platform-report
+          path: /tmp/platform-report/
