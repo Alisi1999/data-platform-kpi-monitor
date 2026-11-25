@@ -6,3 +6,5 @@ venv/
 .DS_Store
 .env
 .ipynb_checkpoints/
+sample_data/
+reports/
