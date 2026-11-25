@@ -56,6 +56,13 @@ tests/              # core logic and end-to-end tests
 .github/workflows/  # automated CI test checks
 ```
 
+## Documentation and CI artifacts
+
+- [Architecture and pipeline data flow](docs/ARCHITECTURE.md)
+- [Validation rules and data contract](docs/DATA_CONTRACT.md)
+- [SQL queries and interpretation](docs/SQL_GUIDE.md)
+- [GitHub Actions runs](../../actions/workflows/tests.yml) — each successful run also uploads the generated dashboard and report CSVs as a downloadable `synthetic-platform-report` artifact.
+
 ## Representative questions answered
 
 - Which pipelines are failing most often?
