@@ -54,4 +54,6 @@ LEFT JOIN tickets_by_pipeline
 
 The left join keeps pipelines even if they have no support tickets. `NULLIF` avoids division by zero when no failures occurred.
 
+For example, a pipeline with four runs (two failed) and three tickets has 1.5 tickets per failure. Joining the raw tables by pipeline would produce twelve rows (four runs times three tickets). Aggregating each table first preserves the original counts.
+
 **Interpretation warning:** support tickets and failures are not linked to the same incidents; the ratio highlights which pipelines may deserve investigation but should not be interpreted as a causal measure.
