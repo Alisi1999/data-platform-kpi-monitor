@@ -81,7 +81,7 @@ tests/              # core logic and end-to-end tests
 - Invalid rows are excluded from aggregated metrics but saved to `data_quality_issues.csv` for investigation. Failed runs with valid data **are** included in reliability metrics.
 - Duplicate run IDs: by default the **first otherwise-valid occurrence stays** and extra valid copies are flagged (`keep_first`). Earlier corrupt duplicates remain in the issue log but cannot suppress a later valid row. Use `flag_all` if every copy of a duplicate ID should be flagged.
 - Counts of processed records must be whole numbers; fractional and invalid values are logged instead of silently truncated.
-- The trend averages available daily rates within the preceding seven calendar days. Dates with no runs are not counted as zero-failure days.
+- The trend averages available daily rates within the preceding seven calendar days. Dates with no runs are not counted as zero-failure days. For example, if the only two active days in a window have 1 failure in 2 runs and 0 failures in 8 runs, the rolling average is 25% (the mean of 50% and 0%). The pooled failure rate for those same runs is 10% (1 in 10).
 - Data is generated with a fixed random seed to make results reproducible.
 - This is not a real-time monitoring solution; it illustrates the workflow and can be extended with ingestion from real, consented sources.
 
