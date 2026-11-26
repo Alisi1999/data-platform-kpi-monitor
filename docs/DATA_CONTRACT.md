@@ -13,6 +13,8 @@ The analyzer expects a `pipeline_runs.csv` containing these columns:
 
 The implementation emits a separate finding for each violated rule. Thus a source row with multiple problems appears multiple times in `data_quality_issues.csv`. `row_number` corresponds to the original CSV row, including its header row.
 
+For example, if CSV row 4 has a blank pipeline name and a negative record count, it produces two findings for row 4. To count affected input rows, count distinct `row_number` values in the issue log.
+
 ## Duplicate handling
 
 - `--duplicate-policy keep_first` (default): retain the first otherwise-valid occurrence and flag additional otherwise-valid duplicates.
