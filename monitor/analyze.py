@@ -132,7 +132,7 @@ def daily_failure_trend(good: pd.DataFrame) -> pd.DataFrame:
 
 
 def pipeline_ticket_overview(good: pd.DataFrame, tickets: pd.DataFrame) -> pd.DataFrame:
-    """Join run failures with support tickets per pipeline to point at root causes."""
+    """Join aggregate failure and support-ticket counts by pipeline."""
     _require(tickets, REQUIRED_TICKET_COLUMNS, 'ticket')
     columns = ['pipeline', 'total_runs', 'failed_runs', 'tickets', 'open_tickets', 'tickets_per_failure']
     if good.empty:

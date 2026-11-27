@@ -1,8 +1,8 @@
 # Data Platform KPI & Quality Monitor
 
-A small, **reproducible portfolio project** that demonstrates practical **Python, pandas, SQL, data quality checks, KPI monitoring, support-ticket analysis and data/AI use-case documentation**. This project is a standalone learning demonstration, not an employer system or production platform.
+This Python project checks pipeline runs with pandas and calculates failure rates in SQLite. The HTML dashboard shows those rates alongside support-ticket counts for each pipeline.
 
-> **Data note:** All input records are generated locally and are **synthetic**. The project contains no personal, pharmacy, patient or real company data.
+[`monitor/generate.py`](monitor/generate.py) generates all sample records.
 
 ## What it does
 
@@ -63,18 +63,9 @@ tests/              # core logic and end-to-end tests
 - [SQL queries and interpretation](docs/SQL_GUIDE.md)
 - [GitHub Actions runs](../../actions/workflows/tests.yml) — each successful run also uploads the generated dashboard and report CSVs as a downloadable `synthetic-platform-report` artifact.
 
-## Representative questions answered
-
-- Which pipelines are failing most often?
-- How reliable are our pipeline executions, and is the failure rate trending up?
-- Which pipelines generate the most support tickets relative to their failures?
-- How many data quality findings were detected before KPI aggregation?
-- What types of issues appear most often in support tickets?
-- How many data/AI use cases are active versus planned?
-
 ## Design choices and limitations
 
-- **SQLite** keeps the project runnable without any cloud account. It demonstrates SQL querying, **not Databricks or Azure experience**.
+- **SQLite** keeps the project runnable without any cloud account.
 - The example uses a fixed synthetic 30-day time window; it is not connected to live APIs or production jobs.
 - Sample CSVs and report files are generated on demand, not tracked in Git, keeping the repository focused on source code and tests.
 - Validation rules are **vectorised pandas masks**: each rule is one line, and the check scales to large tables.
@@ -83,14 +74,6 @@ tests/              # core logic and end-to-end tests
 - Counts of processed records must be whole numbers; fractional and invalid values are logged instead of silently truncated.
 - The trend averages available daily rates within the preceding seven calendar days. Dates with no runs are not counted as zero-failure days. For example, if the only two active days in a window have 1 failure in 2 runs and 0 failures in 8 runs, the rolling average is 25% (the mean of 50% and 0%). The pooled failure rate for those same runs is 10% (1 in 10).
 - Data is generated with a fixed random seed to make results reproducible.
-- This is not a real-time monitoring solution; it illustrates the workflow and can be extended with ingestion from real, consented sources.
-
-## Ideas for further development
-
-- Add a Streamlit interface with interactive filters.
-- Load the demo data into PostgreSQL or Databricks.
-- Move quality rules into a configuration file and schedule automated reports.
-- Add richer issue-cause categories, e.g. linking ticket categories to failed runs by date.
 
 ## License
 
