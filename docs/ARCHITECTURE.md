@@ -34,7 +34,7 @@ The default duplicate policy retains the first otherwise-valid occurrence of an 
 
 ## Storage choices
 
-The project uses **SQLite in memory** to make SQL analysis simple to reproduce without cloud credentials. It does not demonstrate production orchestration, distributed processing, Databricks or Azure. The synthetic CSV files and reports are regenerated on demand rather than stored as source-controlled artifacts.
+The project uses **SQLite in memory** to make SQL analysis simple to reproduce without cloud credentials. The synthetic CSV files and reports are regenerated on demand rather than stored as source-controlled artifacts.
 
 ## Boundaries
 
